@@ -1,18 +1,18 @@
 # Chat Templates
 
-Chat templates are essential for structuring interactions between language models and users. They provide a consistent format for conversations, ensuring that models understand the context and role of each message while maintaining appropriate response patterns.
+聊天模板对于构建语言模型与用户之间的交互至关重要。它们为对话提供了一种一致的格式，确保模型能够理解每条消息的上下文和角色，同时保持适当的回应模式。
 
 ## Base Models vs Instruct Models
 
-A base model is trained on raw text data to predict the next token, while an instruct model is fine-tuned specifically to follow instructions and engage in conversations. For example, `SmolLM2-135M` is a base model, while `SmolLM2-135M-Instruct` is its instruction-tuned variant.
+基础模型是在原始文本数据上进行训练，以预测下一个标记，而指令模型则经过专门微调，以遵循指令并参与对话。例如，SmolLM2-135M是一个基础模型，而SmolLM2-135M-Instruct则是其经过指令调优的变体。
 
-To make a base model behave like an instruct model, we need to format our prompts in a consistent way that the model can understand. This is where chat templates come in. ChatML is one such template format that structures conversations with clear role indicators (system, user, assistant).
+为了使基础模型表现得像指令模型，我们需要以模型能够理解的一致方式格式化我们的提示。这就是聊天模板发挥作用的地方。ChatML是这样一种模板格式，它使用明确的角色指示符（系统、用户、助手）来结构化对话。
 
-It's important to note that a base model could be fine-tuned on different chat templates, so when we're using an instruct model we need to make sure we're using the correct chat template.
+重要的是要注意，基础模型可以在不同的聊天模板上进行微调，因此，当我们使用指令模型时，我们需要确保我们使用的是正确的聊天模板。
 
 ## Understanding Chat Templates
 
-At their core, chat templates define how conversations should be formatted when communicating with a language model. They include system-level instructions, user messages, and assistant responses in a structured format that the model can understand. This structure helps maintain consistency across interactions and ensures the model responds appropriately to different types of inputs. Below is an example of a chat template:
+从根本上讲，聊天模板定义了在与语言模型通信时对话的格式。它们以模型能够理解的结构化格式包含系统级指令、用户消息和助手回复。这种结构有助于保持交互的一致性，并确保模型对不同类型的输入做出适当的回应。下面是一个聊天模板的示例：
 
 ```sh
 <|im_start|>user
@@ -24,7 +24,7 @@ Can I ask a question?<|im_end|>
 <|im_start|>assistant
 ```
 
-The `transformers` library will take care of chat templates for you in relation to the model's tokenizer. Read more about how transformers builds chat templates [here](https://huggingface.co/docs/transformers/en/chat_templating#how-do-i-use-chat-templates). All we have to do is structure our messages in the correct way and the tokenizer will take care of the rest. Here's a basic example of a conversation:
+`transformers`库会为您处理与模型分词器相关的聊天模板。有关transformers如何构建聊天模板的更多信息，请点击此处[here](https://huggingface.co/docs/transformers/en/chat_templating#how-do-i-use-chat-templates)查阅。我们只需要以正确的方式构建消息，分词器会处理其余部分。以下是一个对话的基本示例：
 
 ```python
 messages = [
@@ -34,11 +34,11 @@ messages = [
 ]
 ```
 
-Let's break down the above example, and see how it maps to the chat template format.
+让我们分解上面的示例，看看它是如何映射到聊天模板格式的。
 
 ## System Messages
 
-System messages set the foundation for how the model should behave. They act as persistent instructions that influence all subsequent interactions. For example:
+系统消息为模型的行为方式奠定了基础。它们作为持久指令，影响所有后续交互。例如：
 
 ```python
 system_message = {
@@ -49,7 +49,7 @@ system_message = {
 
 ## Conversations
 
-Chat templates maintain context through conversation history, storing previous exchanges between users and the assistant. This allows for more coherent multi-turn conversations:
+聊天模板通过对话历史记录维持上下文，存储用户和助手之间的先前交流。这有助于实现更加连贯的多轮对话：
 
 ```python
 conversation = [
@@ -61,7 +61,7 @@ conversation = [
 
 ## Implementation with Transformers
 
-The transformers library provides built-in support for chat templates. Here's how to use them:
+transformers库为聊天模板提供了内置支持。以下是使用方法：
 
 ```python
 from transformers import AutoTokenizer
@@ -82,7 +82,8 @@ formatted_chat = tokenizer.apply_chat_template(
 ```
 
 ## Custom Formatting
-You can customize how different message types are formatted. For example, adding special tokens or formatting for different roles:
+
+您可以自定义不同消息类型的格式。例如，为不同角色添加特殊标记或格式：
 
 ```python
 template = """
@@ -94,7 +95,7 @@ template = """
 
 ## Multi-Turn Support
 
-Templates can handle complex multi-turn conversations while maintaining context:
+模板可以在保持上下文的同时处理复杂的多轮对话：
 
 ```python
 messages = [

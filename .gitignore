@@ -156,6 +156,8 @@ cython_debug/
 
 # Model output files
 sft_output/
+# Instruction-tuning Model save files
+SmolLM2-FT-Instruct/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

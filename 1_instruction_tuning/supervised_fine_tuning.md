@@ -1,40 +1,40 @@
 # Supervised Fine-Tuning
 
-Supervised Fine-Tuning (SFT) is a critical process for adapting pre-trained language models to specific tasks or domains. While pre-trained models have impressive general capabilities, they often need to be customized to excel at particular use cases. SFT bridges this gap by further training the model on carefully curated datasets with human-validated examples.
+监督微调（SFT）是将预训练语言模型适应特定任务或领域的关键过程。虽然预训练模型具有令人印象深刻的通用能力，但它们通常需要进行定制才能在特定用例中表现出色。监督微调通过在人工验证的精心策划的数据集上进一步训练模型来弥合这一差距。
 
 ## Understanding Supervised Fine-Tuning
 
-At its core, supervised fine-tuning is about teaching a pre-trained model to perform specific tasks through examples of labeled tokens. The process involves showing the model many examples of the desired input-output behavior, allowing it to learn the patterns specific to your use case.
+其核心在于，监督微调是通过标记令牌的示例来教授预训练模型执行特定任务。该过程涉及向模型展示许多期望的输入输出行为示例，使其学习到您用例中特有的模式。
 
-SFT is effective because it uses the foundational knowledge acquired during pre-training while adapting the model's behavior to match your specific needs.
+监督微调之所以有效，是因为它在适应模型行为以满足您的特定需求的同时，利用了预训练期间获得的基础知识。
 
 ## When to Use Supervised Fine-Tuning
 
-The decision to use SFT often comes down to the gap between your model's current capabilities and your specific requirements. SFT becomes particularly valuable when you need precise control over the model's outputs or when working in specialized domains.
+使用监督微调（SFT）的决定通常取决于您模型的当前能力与您的特定需求之间的差距。当您需要精确控制模型的输出或在专业领域工作时，监督微调变得尤为重要。
 
-For example, if you're developing a customer service application, you might want your model to consistently follow company guidelines and handle technical queries in a standardized way. Similarly, in medical or legal applications, accuracy and adherence to domain-specific terminology becomes crucial. In these cases, SFT can help align the model's responses with professional standards and domain expertise.
+例如，如果您正在开发一个客户服务应用程序，您可能希望您的模型始终遵循公司准则并以标准化的方式处理技术查询。同样，在医疗或法律应用中，准确性和遵循特定领域的术语变得至关重要。在这些情况下，监督微调可以帮助模型的回复与专业标准和领域专业知识保持一致。
 
 ## The Fine-Tuning Process
 
-The supervised fine-tuning process involves adjusting a model's weights on a task-specific dataset. 
+监督微调过程涉及在特定任务的数据集上调整模型的权重。
 
-First, you'll need to prepare or select a dataset that represents your target task. This dataset should include diverse examples that cover the range of scenarios your model will encounter. The quality of this data is important - each example should demonstrate the kind of output you want your model to produce. Next comes the actual fine-tuning phase, where you'll use frameworks like Hugging Face's `transformers` and `trl` to train the model on your dataset. 
+首先，您需要准备或选择一个代表目标任务的数据集。该数据集应包含涵盖模型将遇到的各种场景的多样化示例。数据的质量很重要——每个示例都应展示您希望模型生成的输出类型。接下来是实际的微调阶段，您将使用如Hugging Face的`transformers`和`trl`等框架在数据集上训练模型。
 
-Throughout the process, continuous evaluation is essential. You'll want to monitor the model's performance on a validation set to ensure it's learning the desired behaviors without losing its general capabilities. In [module 4](../4_evaluation), we'll cover how to evaluate your model.
+在整个过程中，持续评估至关重要。您需要监控模型在验证集上的表现，以确保其正在学习所需行为而不会丧失通用能力。在模块[module 4](../4_evaluation)中，我们将介绍如何评估您的模型。
 
 ## The Role of SFT in Preference Alignment
 
-SFT plays a fundamental role in aligning language models with human preferences. Techniques such as Reinforcement Learning from Human Feedback (RLHF) and Direct Preference Optimization (DPO) rely on SFT to form a base level of task understanding before further aligning the model’s responses with desired outcomes. Pre-trained models, despite their general language proficiency, may not always generate outputs that match human preferences. SFT bridges this gap by introducing domain-specific data and guidance, which improves the model’s ability to generate responses that align more closely with human expectations.
+监督微调（SFT）在使语言模型与人类偏好保持一致方面发挥着基础性作用。诸如来自人类反馈的强化学习（RLHF）和直接偏好优化（DPO）等技术，依赖于监督微调来形成任务理解的基础水平，然后再进一步使模型的响应与期望结果保持一致。尽管预训练模型具有通用语言熟练度，但它们并不总是生成与人类偏好相匹配的输出。监督微调通过引入特定领域的数据和指导来弥合这一差距，从而提高了模型生成与人类期望更一致的响应的能力。
 
 ## Supervised Fine-Tuning With Transformer Reinforcement Learning
 
-A key software package for Supervised Fine-Tuning is Transformer Reinforcement Learning (TRL). TRL is a toolkit used to train transformer language models using reinforcement learning (RL).
+TRL是一个使用强化学习（RL）训练Transformer语言模型的工具包。
 
-Built on top of the Hugging Face Transformers library, TRL allows users to directly load pretrained language models and supports most decoder and encoder-decoder architectures. The library facilitates major processes of RL used in language modelling, including supervised fine-tuning (SFT), reward modeling (RM), proximal policy optimization (PPO), and Direct Preference Optimization (DPO). We will use TRL in a number of modules throughout this repo.
+TRL建立在Hugging Face `Transformers`库之上，允许用户直接加载预训练的语言模型，并支持大多数decoder 和 encoder-decoder架构。该库简化了语言建模中使用的强化学习的主要过程，包括监督微调（SFT）、奖励建模（RM）、近端策略优化（PPO）和直接偏好优化（DPO）。我们将在本存储库的多个模块中使用TRL。
 
 # Next Steps
 
-Try out the following tutorials to get hands on experience with SFT using TRL:
+尝试以下教程，使用TRL亲身体验监督微调（SFT）：
 
 ⏭️ [Chat Templates Tutorial](./notebooks/chat_templates_example.ipynb)
 
