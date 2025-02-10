@@ -158,6 +158,10 @@ cython_debug/
 sft_output/
 # Instruction-tuning Model save files
 SmolLM2-FT-Instruct/
+# preference-alignment Model save files
+SmolLM2-FT-DPO/
+SmolLM2-FT-ORPO/
+results/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

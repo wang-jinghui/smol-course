@@ -1,32 +1,30 @@
-# Preference Alignment
+# Preference Alignment（偏好对齐）
 
-This module covers techniques for aligning language models with human preferences. While supervised fine-tuning helps models learn tasks, preference alignment encourages outputs to match human expectations and values.
+此模块涵盖了将语言模型与人类偏好进行对齐的技术。虽然监督微调有助于模型学习任务，但偏好对齐则鼓励输出与人类期望和价值观相匹配。
 
 ## Overview
+典型的对齐方法涉及多个阶段：
+- 监督微调（SFT）：使模型适应特定领域
+- 偏好对齐（如RLHF或DPO）：提高响应质量
 
-Typical alignment methods involve multiple stages:
-1. Supervised Fine-Tuning (SFT) to adapt models to specific domains
-2. Preference alignment (like RLHF or DPO) to improve response quality
+像ORPO这样的替代方法将指令调优和偏好对齐结合为一个过程。在这里，我们将重点关注DPO和ORPO算法。
 
-Alternative approaches like ORPO combine instruction tuning and preference alignment into a single process. Here, we will focus on DPO and ORPO algorithms.
-
-If you would like to learn more about the different alignment techniques, you can read more about them in the [Argilla Blog](https://argilla.io/blog/mantisnlp-rlhf-part-8). 
+如果您想了解更多关于不同对齐技术的信息，可以在[Argilla Blog](https://argilla.io/blog/mantisnlp-rlhf-part-8)上阅读更多相关内容。
 
 ### 1️⃣ Direct Preference Optimization (DPO)
 
-Direct Preference Optimization (DPO) simplifies preference alignment by directly optimizing models using preference data. This approach eliminates the need for separate reward models and complex reinforcement learning, making it more stable and efficient than traditional Reinforcement Learning from Human Feedback (RLHF). For more details, you can refer to the [Direct Preference Optimization (DPO) documentation](./dpo.md).
-
+直接偏好优化（DPO）通过直接使用偏好数据优化模型来简化偏好对齐。这种方法无需单独的奖励模型和复杂的强化学习，相比传统的人类反馈强化学习（RLHF）更为稳定和高效。更多详细信息，请参阅直接偏好优化[Direct Preference Optimization (DPO) documentation](./dpo.md)文档。
 
 ### 2️⃣ Odds Ratio Preference Optimization (ORPO)
 
-ORPO introduces a combined approach to instruction tuning and preference alignment in a single process. It modifies the standard language modeling objective by combining negative log-likelihood loss with an odds ratio term on a token level. The approach features a unified single-stage training process, reference model-free architecture, and improved computational efficiency. ORPO has shown impressive results across various benchmarks, demonstrating better performance on AlpacaEval compared to traditional methods. For more details, you can refer to the [Odds Ratio Preference Optimization (ORPO) documentation](./orpo.md).
+ORPO在单个过程中引入了一种将指令调优和偏好对齐相结合的方法。它通过在标记级别上将负对数似然损失与比率项相结合，修改了标准语言建模目标。该方法具有统一的单阶段训练过程、参考model-free架构以及改进的计算效率。ORPO在各种基准测试中取得了令人印象深刻的结果，在AlpacaEval上的表现优于传统方法。更多详细信息，请参阅比率偏好优化（ORPO）文档[Odds Ratio Preference Optimization (ORPO) documentation](./orpo.md)。
 
 ## Exercise Notebooks
 
 | Title | Description | Exercise | Link | Colab |
 |-------|-------------|----------|------|-------|
-| DPO Training | Learn how to train models using Direct Preference Optimization | 🐢 Train a model using the Anthropic HH-RLHF dataset<br>🐕 Use your own preference dataset<br>🦁 Experiment with different preference datasets and model sizes | [Notebook](./notebooks/dpo_finetuning_example.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/2_preference_alignment/notebooks/dpo_finetuning_example.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
-| ORPO Training | Learn how to train models using Odds Ratio Preference Optimization | 🐢 Train a model using instruction and preference data<br>🐕 Experiment with different loss weightings<br>🦁 Compare ORPO results with DPO | [Notebook](./notebooks/orpo_finetuning_example.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/2_preference_alignment/notebooks/orpo_finetuning_example.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| DPO Training | 学习如何使用直接偏好优化来训练模型 | 🐢 Train a model using the Anthropic HH-RLHF dataset<br>🐕 Use your own preference dataset<br>🦁 Experiment with different preference datasets and model sizes | [Notebook](./notebooks/dpo_finetuning_example.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/2_preference_alignment/notebooks/dpo_finetuning_example.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| ORPO Training | 学习如何使用比率偏好优化来训练模型 | 🐢 Train a model using instruction and preference data<br>🐕 Experiment with different loss weightings<br>🦁 Compare ORPO results with DPO | [Notebook](./notebooks/orpo_finetuning_example.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/2_preference_alignment/notebooks/orpo_finetuning_example.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
 
 
 ## Resources
