@@ -1,32 +1,33 @@
 # Parameter-Efficient Fine-Tuning (PEFT)
 
-As language models grow larger, traditional fine-tuning becomes increasingly challenging. A full fine-tuning of even a 1.7B parameter model requires substantial GPU memory, makes storing separate model copies expensive, and risks catastrophic forgetting of the model's original capabilities. Parameter-efficient fine-tuning (PEFT) methods address these challenges by modifying only a small subset of model parameters while keeping most of the model frozen.
+随着语言模型的规模不断扩大，传统的微调变得越来越具有挑战性。即便是对一个拥有17亿参数的模型进行全面微调，也需要大量的GPU内存，存储独立的模型副本成本高昂，而且还存在模型原始能力灾难性遗忘的风险。参数高效微调（PEFT）方法通过仅修改模型参数的一小部分子集，同时保持模型的大部分参数不变，来解决这些挑战。
 
-Traditional fine-tuning updates all model parameters during training, which becomes impractical for large models. PEFT methods introduce approaches to adapt models using fewer trainable parameters - often less than 1% of the original model size. This dramatic reduction in trainable parameters enables:
+传统微调在训练过程中会更新所有模型参数，这对于大型模型来说是不切实际的。PEFT方法引入了使用更少可训练参数来适应模型的方法，这些参数通常少于原始模型大小的1%。可训练参数的显著减少使得：
 
-- Fine-tuning on consumer hardware with limited GPU memory
-- Storing multiple task-specific adaptations efficiently
-- Better generalization in low-data scenarios
-- Faster training and iteration cycles
+- 在GPU内存有限的消费级硬件上进行微调成为可能
+- 能够高效地存储多个针对特定任务的模型调整版本
+- 在数据稀缺的场景下具有更好的泛化能力
+- 训练和迭代周期更快”
 
 ## Available Methods
 
-In this module, we will cover two popular PEFT methods:
+在这个模块中，我们将介绍两种流行的参数高效微调（PEFT）方法：
 
-### 1️⃣ LoRA (Low-Rank Adaptation)
+### 1️⃣ LoRA（低秩适配）
 
-LoRA has emerged as the most widely adopted PEFT method, offering an elegant solution to efficient model adaptation. Instead of modifying the entire model, **LoRA injects trainable matrices into the model's attention layers.** This approach typically reduces trainable parameters by about 90% while maintaining comparable performance to full fine-tuning. We will explore LoRA in the [LoRA (Low-Rank Adaptation)](./lora_adapters.md) section.
+LoRA已成为最广泛采用的PEFT方法，为高效模型适配提供了一种优雅的解决方案。LoRA不是修改整个模型，而是在模型的注意力层中注入可训练的矩阵。这种方法通常能将可训练参数减少约90%，同时保持与全面微调相当的性能。我们将在[LoRA (Low-Rank Adaptation)](./lora_adapters.md)部分探讨LoRA。 
  
 ### 2️⃣ Prompt Tuning
 
-Prompt tuning offers an **even lighter** approach by **adding trainable tokens to the input** rather than modifying model weights. Prompt tuning is less popular than LoRA, but can be a useful technique for quickly adapting a model to new tasks or domains. We will explore prompt tuning in the [Prompt Tuning](./prompt_tuning.md) section.
+提示调优通过向输入中添加**可训练标记**而不是修改**模型权重**，提供了一种更**轻量级**的方法。提示调优不如LoRA流行，但可以作为快速使模型适应新任务或领域的有用技术。我们将在提示[Prompt Tuning](./prompt_tuning.md)部分探讨提示调优。
+
 
 ## Exercise Notebooks
 
 | Title | Description | Exercise | Link | Colab |
 |-------|-------------|----------|------|-------|
-| LoRA Fine-tuning | Learn how to fine-tune models using LoRA adapters | 🐢 Train a model using LoRA<br>🐕 Experiment with different rank values<br>🦁 Compare performance with full fine-tuning | [Notebook](./notebooks/finetune_sft_peft.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/3_parameter_efficient_finetuning/notebooks/finetune_sft_peft.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
-| Load LoRA Adapters | Learn how to load and use trained LoRA adapters | 🐢 Load pre-trained adapters<br>🐕 Merge adapters with base model<br>🦁 Switch between multiple adapters | [Notebook](./notebooks/load_lora_adapter.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/3_parameter_efficient_finetuning/notebooks/load_lora_adapter.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| LoRA Fine-tuning | 学习如何使用LoRA适配器微调模型 | 🐢 使用LoRA训练模型<br>🐕 尝试不同的秩值进行实验<br>🦁 与全面微调的性能进行比较 | [Notebook](./notebooks/finetune_sft_peft.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/3_parameter_efficient_finetuning/notebooks/finetune_sft_peft.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
+| Load LoRA Adapters | 学习如何加载和使用已训练的LoRA适配器 | 🐢 加载预训练的适配器<br>🐕 将适配器与基础模型合并<br>🦁 在多个适配器之间切换 | [Notebook](./notebooks/load_lora_adapter.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/3_parameter_efficient_finetuning/notebooks/load_lora_adapter.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
 <!-- | Prompt Tuning | Learn how to implement prompt tuning | 🐢 Train soft prompts<br>🐕 Compare different initialization strategies<br>🦁 Evaluate on multiple tasks | [Notebook](./notebooks/prompt_tuning_example.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/3_parameter_efficient_finetuning/notebooks/prompt_tuning_example.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> | -->
 
 ## Resources

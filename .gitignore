@@ -161,6 +161,7 @@ SmolLM2-FT-Instruct/
 # preference-alignment Model save files
 SmolLM2-FT-DPO/
 SmolLM2-FT-ORPO/
+SmolLM2-FT-LoRA/
 results/
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
