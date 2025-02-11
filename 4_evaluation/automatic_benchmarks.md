@@ -1,76 +1,67 @@
-# Automatic Benchmarks
+# 自动基准测试
 
-Automatic benchmarks serve as standardized tools for evaluating language models across different tasks and capabilities. While they provide a useful starting point for understanding model performance, it's important to recognize that they represent only one piece of a comprehensive evaluation strategy.
+自动基准测试是评估语言模型在不同任务和能力上表现的标准化工具。虽然它们为理解模型性能提供了一个有用的起点，但重要的是要认识到，它们只是全面评估策略中的一部分。
 
-## Understanding Automatic Benchmarks
+## 理解自动基准测试
 
-Automatic benchmarks typically consist of curated datasets with predefined tasks and evaluation metrics. These benchmarks aim to assess various aspects of model capability, from basic language understanding to complex reasoning. The key advantage of using automatic benchmarks is their standardization - they allow for consistent comparison across different models and provide reproducible results.
+自动基准测试通常由具有预定任务和评估指标的精选数据集组成。这些基准测试旨在评估模型能力的各个方面，从基本的语言理解到复杂的推理。使用自动基准测试的关键优势在于其标准化——它们允许在不同模型之间进行一致的比较，并提供可重复的结果。
 
-However, it's crucial to understand that benchmark performance doesn't always translate directly to real-world effectiveness. A model that excels at academic benchmarks may still struggle with specific domain applications or practical use cases.
+然而，重要的是要理解，基准测试的表现并不总是直接转化为现实世界的有效性。一个在学术基准测试中表现出色的模型，在处理特定领域应用或实际用例时仍可能遇到困难。
 
-## Benchmarks and Their Limitations
+## 基准测试及其局限性
 
-### General Knowledge Benchmarks
+### 通识知识基准测试
+MMLU（大规模多任务语言理解）测试涵盖从科学到人文的57个学科的知识。虽然全面，但它可能无法反映特定领域所需的专业知识深度。TruthfulQA评估模型再现常见误解的倾向，尽管它无法捕捉所有形式的错误信息。
 
-MMLU (Massive Multitask Language Understanding) tests knowledge across 57 subjects, from science to humanities. While comprehensive, it may not reflect the depth of expertise needed for specific domains. TruthfulQA evaluates a model's tendency to reproduce common misconceptions, though it can't capture all forms of misinformation.
+### 推理基准测试
+BBH（Big Bench Hard）和GSM8K专注于复杂的推理任务。BBH测试逻辑思维和规划能力，而GSM8K则专门针对数学问题解决。这些基准测试有助于评估分析能力，但可能无法捕捉现实场景中所需的细微推理。
 
-### Reasoning Benchmarks
-BBH (Big Bench Hard) and GSM8K focus on complex reasoning tasks. BBH tests logical thinking and planning, while GSM8K specifically targets mathematical problem-solving. These benchmarks help assess analytical capabilities but may not capture the nuanced reasoning required in real-world scenarios.
+### 语言理解
+HELM提供了一个全面的评估框架，而WinoGrande则通过代词消歧测试常识。这些基准测试提供了对语言处理能力的洞察，但可能无法完全体现自然对话的复杂性或特定领域的术语。
 
-### Language Understanding
-HELM provides a holistic evaluation framework, while WinoGrande tests common sense through pronoun disambiguation. These benchmarks offer insights into language processing capabilities but may not fully represent the complexity of natural conversation or domain-specific terminology.
+## 替代评估方法
+许多组织已经开发了替代评估方法来解决标准基准测试的局限性：
 
-## Alternative Evaluation Approaches
+### LLM作为评估者
+使用一种语言模型来评估另一种语言模型的输出变得越来越流行。这种方法可能比传统指标提供更细致的反馈，尽管它本身也带有偏见和局限性。
 
-Many organizations have developed alternative evaluation methods to address the limitations of standard benchmarks:
+### 评估平台
+像Anthropic的Constitutional AI Arena这样的平台允许模型在受控环境中相互交互和评估。这可以揭示在传统基准测试中可能不明显的优势和劣势。
 
-### LLM-as-Judge
-Using one language model to evaluate another's outputs has become increasingly popular. This approach can provide more nuanced feedback than traditional metrics, though it comes with its own biases and limitations.
+### 自定义基准套件
+组织通常会开发针对其特定需求和用例的内部基准套件。这些可能包括特定领域的知识测试或反映实际部署条件的评估场景。
 
-### Evaluation Arenas
-Platforms like Anthropic's Constitutional AI Arena allow models to interact and evaluate each other in controlled environments. This can reveal strengths and weaknesses that might not be apparent in traditional benchmarks.
+## 制定您自己的评估策略
+请记住，虽然LightEval使得运行标准基准测试变得容易，但您还应该投入时间开发针对您用例的特定评估方法。
 
-### Custom Benchmark Suites
-Organizations often develop internal benchmark suites tailored to their specific needs and use cases. These might include domain-specific knowledge tests or evaluation scenarios that mirror actual deployment conditions.
+虽然标准基准测试提供了一个有用的基线，但它们不应该是您唯一的评估方法。以下是制定更全面方法的方法：
+1. 从相关的标准基准测试开始，建立基线，并与其他模型进行比较。
+2. 确定您用例的具体要求和挑战。您的模型将实际执行哪些任务？哪些类型的错误会是最严重的问题？
+3. 开发反映您实际用例的自定义评估数据集。这可能包括：
+    - 领域中的真实用户查询
+    - 遇到过的常见边界情况
+    - 特别具有挑战性的场景示例
+4. 考虑实施多层评估策略：
+    - 使用自动化指标进行快速反馈
+    - 通过人工评估获得细致入微的理解
+    - 由领域专家对专业应用进行评审
+    - 在受控环境中进行A/B测试
 
-## Creating Your Own Evaluation Strategy
-
-Remember that while LightEval makes it easy to run standard benchmarks, you should also invest time in developing evaluation methods specific to your use case.
-
-While standard benchmarks provide a useful baseline, they shouldn't be your only evaluation method. Here's how to develop a more comprehensive approach:
-
-1. Start with relevant standard benchmarks to establish a baseline and enable comparison with other models.
-
-2. Identify the specific requirements and challenges of your use case. What tasks will your model actually perform? What kinds of errors would be most problematic?
-
-3. Develop custom evaluation datasets that reflect your actual use case. This might include:
-   - Real user queries from your domain
-   - Common edge cases you've encountered
-   - Examples of particularly challenging scenarios
-
-4. Consider implementing a multi-layered evaluation strategy:
-   - Automated metrics for quick feedback
-   - Human evaluation for nuanced understanding
-   - Domain expert review for specialized applications
-   - A/B testing in controlled environments
-
-## Using LightEval for Benchmarking
-
-LightEval tasks are defined using a specific format:
+## 使用LightEval进行基准测试
+LightEval任务使用特定格式进行定义：
 ```
 {suite}|{task}|{num_few_shot}|{auto_reduce}
 ```
+- **suite**:基准测试套件（例如，'mmlu', 'truthfulqa'）
+- **task**:套件中的具体任务（例如，'abstract_algebra'）
+- **num_few_shot**:提示中包含的示例数量（0表示零样本）
+- **auto_reduce**:如果提示过长，是否自动减少少样本示例（0或1）
 
-- **suite**: The benchmark suite (e.g., 'mmlu', 'truthfulqa')
-- **task**: Specific task within the suite (e.g., 'abstract_algebra')
-- **num_few_shot**: Number of examples to include in prompt (0 for zero-shot)
-- **auto_reduce**: Whether to automatically reduce few-shot examples if prompt is too long (0 or 1)
+示例："mmlu|abstract_algebra|0|0" 表示在MMLU的抽象代数任务上进行零样本推理评估。
 
-Example: `"mmlu|abstract_algebra|0|0"` evaluates on MMLU's abstract algebra task with zero-shot inference.
+### 示例评估流程
 
-### Example Evaluation Pipeline
-
-Here's a complete example of setting up and running an evaluation on automatic benchmarks relevant to one specific domain:
+以下是一个关于如何针对某一特定领域的相关自动基准测试进行设置和运行的完整示例：
 
 ```python
 from lighteval.tasks import Task, Pipeline
@@ -113,8 +104,7 @@ pipeline.evaluate()
 results = pipeline.get_results()
 pipeline.show_results()
 ```
-
-Results are displayed in a tabular format showing:
+结果以表格形式显示，内容包括：
 ```
 |                  Task                  |Version|Metric|Value |   |Stderr|
 |----------------------------------------|------:|------|-----:|---|-----:|
@@ -124,8 +114,8 @@ Results are displayed in a tabular format showing:
 |leaderboard:mmlu:high_school_biology:5  |      0|acc   |0.1500|±  |0.0819|
 ```
 
-You can also handle the results in a pandas DataFrame and visualise or represent them as you want.
+您还可以将结果以pandas DataFrame的形式进行处理，并根据自己的需求进行可视化或表示。探索[自定义领域评估]以了解如何创建符合您特定需求的评估流程。
 
-# Next Steps
+# 下一步
 
-⏩ Explore [Custom Domain Evaluation](./custom_evaluation.md) to learn how to create evaluation pipelines tailored to your specific needs
+⏩ 探索[Custom Domain Evaluation](./custom_evaluation.md) 以了解如何创建符合您特定需求的评估流程。

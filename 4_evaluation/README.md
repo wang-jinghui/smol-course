@@ -1,32 +1,27 @@
 # Evaluation
 
-Evaluation is a critical step in developing and deploying language models. It helps us understand how well our models perform across different capabilities and identify areas for improvement. This module covers both standard benchmarks and domain-specific evaluation approaches to comprehensively assess your smol model.
+评估是开发和部署语言模型中的一个关键步骤。它有助于我们了解模型在不同能力上的表现情况，并识别出需要改进的领域。本模块既包含标准基准测试，也涵盖特定领域的评估方法，以全面评估您的smol模型。
 
-We'll use [`lighteval`](https://github.com/huggingface/lighteval), a powerful evaluation library developed by Hugging Face that integrates seamlessly with the Hugging Face ecosystem. For a deeper dive into evaluation concepts and best practices, check out the evaluation [guidebook](https://github.com/huggingface/evaluation-guidebook).
+我们将使用[`lighteval`](https://github.com/huggingface/lighteval)，这是Hugging Face开发的一款强大的评估库，它与Hugging Face生态系统无缝集成。想要深入了解评估概念和最佳实践，请查阅评估[guidebook](https://github.com/huggingface/evaluation-guidebook)。
 
 ## Module Overview 
 
-A thorough evaluation strategy examines multiple aspects of model performance. We assess task-specific capabilities like question answering and summarization to understand how well the model handles different types of problems. We measure output quality through factors like coherence and factual accuracy. Safety evaluation helps identify potential harmful outputs or biases. Finally, domain expertise testing verifies the model's specialized knowledge in your target field.
+一个全面的评估策略会考察模型性能的多个方面。我们评估特定任务的能力，如问答和摘要生成，以了解模型处理不同类型问题的能力。我们通过连贯性和事实准确性等因素来衡量输出质量。安全性评估有助于识别潜在的有害输出或偏见。最后，领域专业知识测试验证了模型在目标领域中的专业知识。
 
-## Contents
 
 ### 1️⃣ [Automatic Benchmarks](./automatic_benchmarks.md)
-
-Learn to evaluate your model using standardized benchmarks and metrics. We'll explore common benchmarks like MMLU and TruthfulQA, understand key evaluation metrics and settings, and cover best practices for reproducible evaluation.
-
+学习使用标准化基准和指标来评估您的模型。我们将探讨常见的基准，如`MMLU`和`TruthfulQA`，理解关键的评估指标和设置，并介绍可重复评估的最佳实践。
 
 ### 2️⃣ [Custom Domain Evaluation](./custom_evaluation.md)
-Discover how to create evaluation pipelines tailored to your specific use case. We'll walk through designing custom evaluation tasks, implementing specialized metrics, and building evaluation datasets that match your requirements.
+了解如何创建适合您特定用例的评估流程。我们将逐步指导您设计自定义评估任务、实现专门指标，以及构建符合您需求的评估数据集。
 
 ### 3️⃣ [Domain Evaluation Project](./project/README.md)
-Follow a complete example of building a domain-specific evaluation pipeline. You'll learn to generate evaluation datasets, use Argilla for data annotation, create standardized datasets, and evaluate models using LightEval.
+跟随一个完整的构建特定领域评估流程的例子。您将学习如何生成评估数据集，使用`Argilla`进行数据标注，创建标准化数据集，以及使用`LightEval`评估模型。
 
-### Exercise Notebooks
-
-| Title | Description | Exercise | Link | Colab |
-|-------|-------------|----------|------|-------|
-| Evaluate and Analyze Your LLM | Learn how to use LightEval to evaluate and compare models on specific domains | 🐢 Use medical domain tasks to evaluate a model <br> 🐕 Create a new domain evaluation with different MMLU tasks <br> 🦁 Create a custom evaluation task for your domain | [Notebook](./notebooks/lighteval_evaluate_and_analyse_your_LLM.ipynb) | <a target="_blank" href="https://colab.research.google.com/github/huggingface/smol-course/blob/main/4_evaluation/notebooks/lighteval_evaluate_and_analyse_your_LLM.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> |
-
+### Exercise 
+- 🐢 使用医学领域任务来评估模型
+- 🐕 使用不同的MMLU任务创建一个新的领域评估
+- 🦁 为您的领域创建一个自定义评估任务
 
 ## Resources
 

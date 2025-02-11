@@ -1,16 +1,16 @@
-# Custom Domain Evaluation
+# 自定义领域评估
 
-While standard benchmarks provide valuable insights, many applications require specialized evaluation approaches tailored to specific domains or use cases. This guide will help you create custom evaluation pipelines that accurately assess your model's performance in your target domain.
+虽然标准基准测试提供了有价值的见解，但许多应用需要针对特定领域或用例量身定制的专门评估方法。本指南将帮助您创建自定义评估流程，以准确评估您的模型在目标领域中的性能。
 
-## Designing Your Evaluation Strategy
+## 设计您的评估策略
 
-A successful custom evaluation strategy starts with clear objectives. Consider what specific capabilities your model needs to demonstrate in your domain. This might include technical knowledge, reasoning patterns, or domain-specific formats. Document these requirements carefully - they'll guide both your task design and metric selection.
+成功的自定义评估策略始于明确的目标。考虑您的模型需要在您的领域中展示哪些特定能力。这可能包括技术知识、推理模式或领域特定的格式。仔细记录这些要求——它们将指导您的任务设计和指标选择。
 
-Your evaluation should test both standard use cases and edge cases. For example, in a medical domain, you might evaluate both common diagnostic scenarios and rare conditions. In financial applications, you might test both routine transactions and complex edge cases involving multiple currencies or special conditions.
+您的评估应测试标准用例和边缘用例。例如，在医疗领域，您可能需要评估常见的诊断场景和罕见病症。在金融应用中，您可能需要测试常规交易和涉及多种货币或特殊条件的复杂边缘用例。
 
-## Implementation with LightEval
+## 使用LightEval进行实现
 
-LightEval provides a flexible framework for implementing custom evaluations. Here's how to create a custom task:
+LightEval提供了一个灵活的框架来实现自定义评估。以下是创建自定义任务的方法：
 
 ```python
 from lighteval.tasks import Task, Doc
@@ -34,9 +34,9 @@ class CustomEvalTask(Task):
         return response.strip() == ref.strip()
 ```
 
-## Custom Metrics
+## 自定义指标
 
-Domain-specific tasks often require specialized metrics. LightEval provides a flexible framework for creating custom metrics that capture domain-relevant aspects of performance:
+特定领域的任务通常需要专门的指标。LightEval提供了一个灵活的框架，用于创建能够捕捉与领域相关性能方面的自定义指标：
 
 ```python
 from aenum import extend_enum
@@ -71,8 +71,7 @@ custom_metric_group = SampleLevelMetricGrouping(
 # Register the metric with LightEval
 extend_enum(Metrics, "custom_metric_name", custom_metric_group)
 ```
-
-For simpler cases where you only need one metric value per sample:
+对于更简单的情况，即您每个样本只需要一个指标值的情况：
 
 ```python
 def simple_metric(predictions: list[str], formatted_doc: Doc, **kwargs) -> bool:
@@ -91,42 +90,36 @@ simple_metric_obj = SampleLevelMetric(
 
 extend_enum(Metrics, "simple_metric", simple_metric_obj)
 ```
+然后，您可以在任务配置中引用自定义指标，在评估任务中使用它们。指标将自动在所有样本上计算，并根据您指定的函数进行聚合。
 
-You can then use your custom metrics in your evaluation tasks by referencing them in the task configuration. The metrics will be automatically computed across all samples and aggregated according to your specified functions.
+对于更复杂的指标，请考虑：
+- 使用格式化文档中的元数据为分数加权或调整分数
+- 为语料库级别的统计信息实现自定义聚合函数
+- 为指标输入添加验证检查
+- 记录边缘案例和预期行为
 
-For more complex metrics, consider:
-- Using metadata in your formatted documents to weight or adjust scores
-- Implementing custom aggregation functions for corpus-level statistics
-- Adding validation checks for your metric inputs
-- Documenting edge cases and expected behavior
+要了解自定义指标在实际应用中的完整示例，请参阅[domain evaluation project](./project/README.md)。
 
-For a complete example of custom metrics in action, see our [domain evaluation project](./project/README.md).
+## 数据集创建
+高质量的评估需要精心策划的数据集。以下是数据集创建的几种方法：
+1. 专家标注：与领域专家合作，创建并验证评估示例。像[Argilla](https://github.com/argilla-io/argilla)这样的工具可以提高这一过程的效率。
+2. 真实世界数据：收集并匿名化处理实际使用数据，确保其能代表实际的部署场景。
+3. 合成生成：使用大型语言模型（LLMs）生成初始示例，然后由专家进行验证和完善。
 
-## Dataset Creation
+## 最佳实践
+- 彻底记录您的评估方法，包括任何假设或限制
+- 包含覆盖您领域不同方面的多样化测试用例
+- 在适当的情况下，同时考虑自动指标和人工评估
+- 对评估数据集和代码进行版本控制
+- 随着发现新的边缘案例或需求，定期更新评估套件
 
-High-quality evaluation requires carefully curated datasets. Consider these approaches for dataset creation:
+# 下一步
 
-1. Expert Annotation: Work with domain experts to create and validate evaluation examples. Tools like [Argilla](https://github.com/argilla-io/argilla) make this process more efficient.
+⏩ 要了解实施这些概念的完整示例，请参阅我们的[domain evaluation project](./project/README.md)。
 
-2. Real-World Data: Collect and anonymize real usage data, ensuring it represents actual deployment scenarios.
-
-3. Synthetic Generation: Use LLMs to generate initial examples, then have experts validate and refine them.
-
-## Best Practices
-
-- Document your evaluation methodology thoroughly, including any assumptions or limitations
-- Include diverse test cases that cover different aspects of your domain
-- Consider both automated metrics and human evaluation where appropriate
-- Version control your evaluation datasets and code
-- Regularly update your evaluation suite as you discover new edge cases or requirements
-
-## References
+# Resources
 
 - [LightEval Custom Task Guide](https://github.com/huggingface/lighteval/wiki/Adding-a-Custom-Task)
 - [LightEval Custom Metrics](https://github.com/huggingface/lighteval/wiki/Adding-a-New-Metric)
 - [Argilla Documentation](https://docs.argilla.io) for dataset annotation
 - [Evaluation Guidebook](https://github.com/huggingface/evaluation-guidebook) for general evaluation principles
-
-# Next Steps
-
-⏩ For a complete example of implementing these concepts, see our [domain evaluation project](./project/README.md).
